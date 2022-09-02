@@ -20,19 +20,18 @@ class Solution {
         que.addLast(root);
         while(que.size()>0){
             int size=que.size();
-            List<Integer> temp=new ArrayList<>();
+            Double avgsize=(double)size;
+            Double sum= (double)0;
+            //List<Integer> temp=new ArrayList<>();
             while(size-->0){
                 TreeNode rn=que.removeFirst();
-                temp.add(rn.val);
+                //temp.add(rn.val);
+                sum += rn.val;
                 if(rn.left!=null) que.addLast(rn.left);
                 if(rn.right!=null) que.addLast(rn.right);
             }
-            double avg=0;
-            double avgsize=temp.size();
-            for(int val: temp){
-                avg += val;
-            }
-            ans.add(avg/avgsize);
+            
+            ans.add(sum/avgsize);
         }
         return ans;
     }
