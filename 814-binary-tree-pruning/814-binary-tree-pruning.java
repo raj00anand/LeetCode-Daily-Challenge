@@ -15,22 +15,25 @@
  */
 class Solution {
     public TreeNode pruneTree(TreeNode root) {
-        solve(root);
-        if(root.val==0 && root.left==null && root.right==null) return null;
-        return root;
+        return solve(root);
     }
-    public boolean solve(TreeNode root){
-        if(root==null) return false;
+    public TreeNode solve(TreeNode root){
+        if(root==null) return null;
         
+        TreeNode left=solve(root.left);
+        TreeNode right=solve(root.right);
         
-        boolean left=solve(root.left);
-        boolean right=solve(root.right);
+        if(left==null){
+            root.left=null;
+        }
+        if(right==null){
+            root.right=null;
+        }
         
-        if(!left) root.left=null;
-        if(!right) root.right=null;
-        
-        return (root.val==1 || left|| right);
-        
-        
+        if(left==null && right==null && root.val==0){
+            root=null;
+            return null;
+        }
+        return root;
     }
 }
