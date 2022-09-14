@@ -14,24 +14,29 @@
  * }
  */
 class Solution {
-    int count=0;
     public int pseudoPalindromicPaths (TreeNode root) {
-        healper(root, 0);
-        return count;
-        
-    }
-    public void healper(TreeNode root, int path){
-        if(root==null){
-            return;
-        }
-        path=path ^ (1<<root.val);
-        
-        if(root.left==null && root.right==null){
-            if((path & (path-1))==0){
-                count++;
+        int count=0, path=0;
+        Deque<Pair<TreeNode, Integer>> st=new ArrayDeque<>();
+        st.push(new Pair(root, 0));
+        while(st.size()>0){
+            Pair<TreeNode, Integer> rp=st.pop();
+            TreeNode node=rp.getKey();
+            path=rp.getValue();
+            
+            if(node!=null){
+                path=path ^ (1<<node.val);
+                
+                if(node.left==null && node.right==null){
+                    if((path & (path-1))==0){
+                        count++;
+                    }
+                }
+                else{
+                    st.push(new Pair(node.right, path));
+                    st.push(new Pair(node.left, path));
+                }
             }
         }
-        healper(root.left, path);
-        healper(root.right, path);
+        return count;
     }
 }
