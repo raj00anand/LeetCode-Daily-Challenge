@@ -10,24 +10,18 @@ class Solution {
                 }
             }
         }
-        for(int key: cset){
+        
             for(int i=0;i<matrix.length;i++){
                 for(int j=0;j<matrix[0].length;j++){
-                    if(j==key){
+                    if(cset.contains(j) || rset.contains(i)){
                         matrix[i][j]=0;
                     }
                 }
             }
-        }
-        for(int key: rset){
-            for(int i=0;i<matrix.length;i++){
-                for(int j=0;j<matrix[0].length;j++){
-                    if(i==key){
-                        matrix[i][j]=0;
-                    }
-                }
-            }
-        }
+        
+        
+            
+        
         
     }
 }
