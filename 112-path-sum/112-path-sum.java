@@ -29,7 +29,7 @@ class Solution {
         }
         boolean left=solve(root.left, targetSum);
         boolean right=solve(root.right, targetSum);
-        targetSum +=root.val;
+        //targetSum +=root.val;
         if(left==true || right==true){
             return true;
         }else{
