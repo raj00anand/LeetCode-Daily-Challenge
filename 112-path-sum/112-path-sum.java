@@ -21,15 +21,15 @@ class Solution {
         if(root==null){
             return false;
         }
-        targetSum -= root.val;
-        if(root.left==null && root.right==null){
-            if(targetSum==0){
-                return true;
-            }
+        //targetSum -= root.val;
+       // System.out.println(targetSum);
+        if(root.left==null && root.right==null && root.val==targetSum){
+            return true;
         }
-        boolean left=solve(root.left, targetSum);
-        boolean right=solve(root.right, targetSum);
+        boolean left=solve(root.left, targetSum-root.val);
+        boolean right=solve(root.right, targetSum-root.val);
         //targetSum +=root.val;
+       // System.out.println(targetSum);
         if(left==true || right==true){
             return true;
         }else{
