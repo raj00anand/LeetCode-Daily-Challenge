@@ -11,8 +11,6 @@ class Solution {
         return count;
     }
     public void dfs(int[][] isConnected, int i, boolean visited[]){
-        
-        
         for(int j=0;j<isConnected.length;j++){
             if(isConnected[i][j]==1 && visited[j]==false){
                 visited[j]=true;
