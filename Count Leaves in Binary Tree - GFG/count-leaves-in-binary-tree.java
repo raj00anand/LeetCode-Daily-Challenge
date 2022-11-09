@@ -118,20 +118,20 @@ class Node
 }*/
 
 class Tree
+
 {
     int count=0;
     int countLeaves(Node node) 
     {
-         // Your code
-         
-         if(node==null){
+         // Your code  
+         if(node == null){
              return 0;
          }
-         if(node.right==null && node.left==null){
-             count++;
+         if(node.left==null && node.right==null){
+             return count++;
          }
-         int lt=countLeaves(node.left);
-         int rt=countLeaves(node.right);
+         int left=countLeaves(node.left);
+         int right=countLeaves(node.right);
          
          return count;
     }
