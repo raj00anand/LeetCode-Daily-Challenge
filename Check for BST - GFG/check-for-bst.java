@@ -125,10 +125,10 @@ public class Solution
         }
         
         if(!isBST(root.left)) return false;
-        
         if(pre!=null && pre.data>root.data){
             return false;
         }
+        
         pre=root;
         
         if(!isBST(root.right)) return false;
