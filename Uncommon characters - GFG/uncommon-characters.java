@@ -28,32 +28,34 @@ class Solution
     String UncommonChars(String A, String B)
     {
         // code here
-        Set<Character> mapa=new HashSet<>();
-        Set<Character> mapb=new HashSet<>();
-        for(char ch: A.toCharArray()){
-            mapa.add(ch);
+        int freqA[]=new int[26];
+        int freqB[]=new int[26];
+        for(int i=0;i<A.length();i++){
+            freqA[A.charAt(i)-'a']++;
         }
-        for(char ch: B.toCharArray()){
-            mapb.add(ch);
+        for(int i=0;i<B.length();i++){
+            freqB[B.charAt(i)-'a']++;
         }
-        HashSet<Character> ans=new HashSet<>();
-        for(char ch: A.toCharArray()){
-            if(!mapb.contains(ch)){
-                ans.add(ch);
+        ArrayList<Character> list=new ArrayList<>();
+        for(int i=0;i<A.length();i++){
+            char ch=A.charAt(i);
+            if(freqB[ch-'a']==0 && !list.contains(ch)){
+                list.add(ch);
             }
         }
-        for(char ch: B.toCharArray()){
-            if(!mapa.contains(ch)){
-                ans.add(ch);
+        for(int i=0;i<B.length();i++){
+            char ch=B.charAt(i);
+            if(freqA[ch-'a']==0 && !list.contains(ch)){
+                list.add(ch);
             }
         }
-        List<Character> res=new ArrayList<>(ans);
-        Collections.sort(res);
-        
-        String temp="";
-        for(int i=0;i<res.size();i++){
-            temp +=res.get(i);
+        //char ch[]=str.toCharArray();
+        //Arrays.sort(ch);
+        String ans="";
+        Collections.sort(list);
+        for(int i=0;i<list.size();i++){
+            ans += list.get(i);
         }
-        return temp.length()==0?"-1":temp;
+        return ans.length()==0? "-1": ans;
     }
 }
