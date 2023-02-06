@@ -1,0 +1,18 @@
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+        if(n==1){
+            return nums;
+        }
+        int N= 2*n;
+        int ans[]=new int[N];
+        int i=0,j=n,k=0;
+        while(j<N){
+            ans[k++]=nums[i];
+            i++;
+            ans[k++]=nums[j];
+            j++;
+        }
+        return ans;
+        
+    }
+}
