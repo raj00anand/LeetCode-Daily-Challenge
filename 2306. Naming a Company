@@ -1,0 +1,27 @@
+class Solution {
+    public long distinctNames(String[] ideas) {
+        HashSet<String>[] setGroup=new HashSet[26];
+        for(int i=0;i<26;i++){
+            setGroup[i]=new HashSet<>();
+        }
+        for(String idea: ideas){
+            setGroup[idea.charAt(0)-'a'].add(idea.substring(1));
+        }
+
+        long res=0;
+        for(int i=0;i<25;i++){
+            for(int j=i+1;j<26;j++){
+
+                long numOfSame=0;
+                for(String ideaA: setGroup[i]){
+                    if(setGroup[j].contains(ideaA)){
+                        numOfSame++;
+                    }
+                }
+
+                res += 2 * (setGroup[i].size()-numOfSame) * (setGroup[j].size()-numOfSame);
+            }
+        }
+        return res;
+    }
+}
