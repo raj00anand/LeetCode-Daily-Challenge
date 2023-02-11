@@ -1,0 +1,52 @@
+class Solution {
+    public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
+        List<Integer>[] reds=new ArrayList[n], blues=new ArrayList[n];
+        for(int red[]: redEdges){
+            if(reds[red[0]]==null){
+                reds[red[0]]=new ArrayList<>();
+            }
+            reds[red[0]].add(red[1]);
+        }
+        for(int blue[]: blueEdges){
+            if(blues[blue[0]]==null){
+                blues[blue[0]]=new ArrayList<>();
+            }
+            blues[blue[0]].add(blue[1]);
+        }
+        int res[]=new int[n];
+        Arrays.fill(res, -1);
+        Queue<int[]> q=new ArrayDeque<>();
+        Set<String> set=new HashSet<>();
+        q.add(new int[]{0, 0});
+        int moves=0;
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i=0;i<size;i++){
+                int curr[] = q.remove();
+                String str = curr[0]+" "+curr[1];
+                if(set.contains(str)) continue;
+                set.add(str);
+                if(res[curr[0]]==-1){
+                    res[curr[0]]=moves;
+                }
+                if(curr[1]==2 || curr[1]==0){
+                    if(reds[curr[0]]!=null){
+                        for(int val: reds[curr[0]]){
+                            q.add(new int[]{val, 1});
+                        }
+                    }
+                }
+                if(curr[1]==1 || curr[1]==0){
+                    if(blues[curr[0]]!=null){
+                        for(int val: blues[curr[0]]){
+                            q.add(new int[]{val, 2});
+                        }
+                    }
+                }
+            }
+            moves++;
+        }
+        return res;
+
+    }
+}
