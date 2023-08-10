@@ -6,12 +6,12 @@ class Solution {
             if(val<=i){
                 i=val;
             }else if(val<=j){
+                // i=j;
                 j=val;
             }else{
                 return true;
             }
         }
         return false;
-        
     }
 }
