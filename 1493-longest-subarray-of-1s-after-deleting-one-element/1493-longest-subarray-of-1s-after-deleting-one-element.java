@@ -1,23 +1,26 @@
 class Solution {
     public int longestSubarray(int[] nums) {
-        // Number of zero's in the window.
-        int zeroCount = 0;
-        int longestWindow = 0;
-        // Left end of the window.
-        int start = 0;
-        
-        for (int i = 0; i < nums.length; i++) {
-            zeroCount += (nums[i] == 0 ? 1 : 0);
-                          
-            // Shrink the window until the zero counts come under the limit.
-            while (zeroCount > 1) {
-                zeroCount -= (nums[start] == 0 ? 1 : 0);
-                start++;
+        int n= nums.length;
+        int ans = Integer.MIN_VALUE;
+        int left = 0, right = 0;
+        boolean zero = false;
+        while(right<n){
+            if(nums[right]==1){
+                right++;
+            }else if(nums[right]==0 && !zero){
+                zero = true;
+                right++;
+            }else{
+                while(zero){
+                    if(nums[left]==0){
+                        zero = false;
+                    }
+                    left++;
+                }
             }
-              
-            longestWindow = Math.max(longestWindow, i - start);
+            // int tempAns = zero ? ;
+            ans = Math.max(ans, right - left -1);
         }
-
-        return longestWindow;
+        return ans;
     }
 }
