@@ -1,40 +1,61 @@
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
-        Stack<Integer> st = new Stack<Integer>();
-
-        for (int asteroid : asteroids) {
-            boolean flag = true;
-            while (!st.isEmpty() && (st.peek() > 0 && asteroid < 0)) {
-                // If the top asteroid in the stack is smaller, then it will explode.
-                // Hence pop it from the stack, also continue with the next asteroid in the stack.
-                if (Math.abs(st.peek()) < Math.abs(asteroid)) {
+        int n = asteroids.length;
+        Stack<Integer> st = new Stack<>();
+        st.push(asteroids[0]);
+        int i=1;
+        while(i<n){
+            int val1 = st.peek();
+            int val2 = asteroids[i];
+            
+            while((!st.isEmpty()) && ((val1>0 && val2<0) || (val1<0 && val1>0))){
+                if(Math.abs(val1)>Math.abs(val2)){
+                    i++;
+                    if(i<n){
+                        val2 = asteroids[i];
+                    }else{
+                        break;
+                    }
+                }else if(Math.abs(val1)<Math.abs(val2)){
                     st.pop();
-                    continue;
-                }
-                // If both asteroids have the same size, then both asteroids will explode.
-                // Pop the asteroid from the stack; also, we won't push the current asteroid to the stack.
-                else if (Math.abs(st.peek()) == Math.abs(asteroid)) {
+                    if(!st.isEmpty()){
+                        val1 = st.peek();
+                    }else{
+                        break;
+                    }
+                }else{
                     st.pop();
+                    if(!st.isEmpty()){
+                        val1 = st.peek();
+                    }
+                    
+                    
+                    i++;
+                    if(i<n){
+                        val2 = asteroids[i];
+                    }else{
+                        break;
+                    }
+                    
+                    
                 }
-
-                // If we reach here, the current asteroid will be destroyed
-                // Hence, we should not add it to the stack
-                flag = false;
+            }
+            if(i<n){
+                st.push(asteroids[i]);
+            }else{
                 break;
             }
-
-            if (flag) {
-                st.push(asteroid);
-            }
+            i++;
+            
         }
-
-        // Add the asteroids from the stack to the vector in the reverse order.
-        int[] remainingAsteroids = new int[st.size()];
-        for (int i = remainingAsteroids.length - 1; i >= 0; i--) {
-            remainingAsteroids[i] = st.peek();
-            st.pop();
+        
+        int ans[] = new int[st.size()];
+        int k=ans.length-1;
+        while(!st.isEmpty()){
+            ans[k--] = st.pop();
         }
-
-        return remainingAsteroids;
+        // Arrays.sort(ans);
+        return ans;
+        
     }
 }
