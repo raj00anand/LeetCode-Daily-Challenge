@@ -13,17 +13,19 @@ class Solution {
         if(head.next==null){
             return null;
         }
-        ListNode pre=new ListNode(0);
-        ListNode fast=head;
-        ListNode slow=head;
-        while(fast!=null && fast.next!=null){
-            fast=fast.next.next;
-            pre=slow;
-            slow=slow.next;
-            
-        }
-        pre.next=pre.next.next;
-        return head;
         
+        ListNode slow = head, fast = head;
+        // ListNode mid = slow;
+        ListNode vslow = new ListNode(0);
+        while(fast!=null && fast.next!=null){
+            fast = fast.next.next;
+            vslow = slow;
+            slow = slow.next;
+            // mid.next = slow.next;
+        }
+        // ListNode temp = slow.next.next;
+        // slow.next = slow.next.next;
+        vslow.next = vslow.next.next;
+        return head;
     }
 }
