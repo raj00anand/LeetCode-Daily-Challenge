@@ -1,29 +1,34 @@
 class Solution {
-    String map[]={" "," ", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
     public List<String> letterCombinations(String digits) {
         if(digits.length()==0){
             return new ArrayList<>();
         }
         return solve(digits);
     }
+    
+    String map[]={ "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
     public List<String> solve(String digits){
         if(digits.length()==0){
-            List<String> bres=new ArrayList<>();
+            List<String> bres = new ArrayList<>();
             bres.add("");
             return bres;
         }
-        char ch=digits.charAt(0);
-        String rstr=digits.substring(1);
-        List<String> mres=solve(rstr);
-        ArrayList<String> res=new ArrayList<>();
-        String mstr=map[ch-'0'];
-        for(int i=0;i<mstr.length();i++){
-            char mch=mstr.charAt(i);
-            for(String nstr: mres){
-                res.add(mch+nstr);
+        
+        char ch = digits.charAt(digits.length()-1);
+        String rstr = digits.substring(0, digits.length()-1);
+        List<String> temp = solve(rstr);
+        List<String> res = new ArrayList<>();
+        
+        // int num = ch-'0';
+        
+        for(String str: temp){
+            String strr = map[ch-'0'];
+            for(char rch: strr.toCharArray()){
+                res.add(str+rch);
             }
         }
         return res;
+        
     }
-
 }
